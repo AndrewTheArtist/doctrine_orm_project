@@ -74,7 +74,7 @@ class Article {
 		$this ->body = $value;
 	}
 
-	public function getPubished(){
+	public function getPublished(){
 		return $this ->published;
 	}
 
