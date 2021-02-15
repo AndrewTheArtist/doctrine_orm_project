@@ -19,7 +19,7 @@ class AdminController extends Controller
         return $this->renderPage($response, 'admin/view.html', [
             'articles' => $articles
         ]);
-    }
+    }       
 
     public function create(Request $request, Response $response, $args = [])
     {
@@ -58,7 +58,7 @@ class AdminController extends Controller
             if($request->getParam('action') == 'delete'){
                 $this->ci->get('db')->remove($article);
                 $this->ci->get('db')->flush();
-                
+
                 return $response-> withRedirect('/admin');
             }
 
@@ -66,13 +66,38 @@ class AdminController extends Controller
             $article->setSlug($request->getParam('slug'));
             $article->setImage($request->getParam('image'));
             $article->setBody($request->getParam('body'));
+            
+            $article->setAuthor(
+                $this->ci->get('db')->find('App\Entity\Author', $request->getParam('author'))
+            );
 
             $this->ci->get('db')->persist($article);
             $this->ci->get('db')->flush();
         }
 
+        $authors = $this->ci->get('db')->getRepository('App\Entity\Author')->findBy([], [
+            'name' => 'ASC'
+        ]);
+
         return $this->renderPage($response, 'admin/edit.html', [
-            'article' => $article
+            'article' => $article,
+            'authors' => $this->authorDropdown($authors, $article)
         ]);
     }
+
+    private function authorDropdown($authors, $article){
+        $options =  [];
+
+        foreach ($authors as $author) {
+            $options[]=sprintf(
+                '<option value="%s" %s>%s</option>',
+                $author->getId(),
+                ($author == $article->getAuthor()) ? 'selected' : '', 
+                $author->getName()
+            );
+        }
+
+        return implode($options);
+    }
+    
 }
