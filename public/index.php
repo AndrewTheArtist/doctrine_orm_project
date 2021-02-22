@@ -30,6 +30,20 @@ $app->get('/admin', '\App\Controller\AdminController:view');
 $app->any('/admin/create', '\App\Controller\AdminController:create');
 $app->any('/admin/{id}', '\App\Controller\AdminController:edit');
 $app->get('/author/{id}', '\App\Controller\AuthorController:author');
+$app->get('/tag', '\App\Controller\TagController:view');
 
 // finish
 $app->run();
+/*
+INSERT INTO `Tags` (`id`, `name`) VALUES
+(1, 'Ashley Galvin'),
+(2, 'Patrick Beach'),
+(3, 'Patrick Beach'),
+(4, 'Patrick Beach'),
+(5, 'Patrick Beach'),
+(6, 'Patrick Beach'),
+(7, 'Patrick Beach'),
+(8, 'Patrick Beach'),
+(9, 'MacKenzie Miller')
+
+*/

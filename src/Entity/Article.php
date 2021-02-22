@@ -37,6 +37,11 @@ class Article {
 	* @ManyToOne(targetEntity="Author", inversedBy="articles")
 	*/
 	private $author;
+	/**
+	* @ManyToMany(targetEntity="Tag", inversedBy="articles")
+	*/
+	private $tag;
+
 
 	public function getId(){
 		return $this ->id;
@@ -92,5 +97,13 @@ class Article {
 
 	public function setAuthor($value){
 		$this ->author = $value;
+	}
+
+	public function getTag(){
+		return $this ->tag;
+	}
+
+	public function setTag($value){
+		$this ->tag = $value;
 	}
 }
