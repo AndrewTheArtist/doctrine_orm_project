@@ -18,13 +18,16 @@ class Tag {
 	* @Column(type="string")
 	*/
 	private $name;
+
 	/**
-	* @ManyToMany*(targetEntity="Article", mappedBy="tag")
+	*@ManyToMany(targetEntity="Article", cascade={"persist"}) 
+	*@JoinTable(name= "article_tags")
+	*@JoinColumn(referencedColumnName="id", nullable = false)
 	*/
 	private $articles;
-
+	
 	public function __construct(){
-		$this->articles = new ArrayCollection; 
+		$this->articles = new ArrayCollection;
 	}
 
 	public function getId(){
@@ -44,7 +47,6 @@ class Tag {
 	}
 
 	public function getArticles(){
-		return $this->articles;
+		return $this ->articles;
 	}
-
 }
