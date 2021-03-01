@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use DateTime;
 /**
 * @Entity
@@ -37,11 +39,17 @@ class Article {
 	* @ManyToOne(targetEntity="Author", inversedBy="articles")
 	*/
 	private $author;
+	
 	/**
-	* @ManyToMany(targetEntity="Tag", inversedBy="articles")
+	*@ManyToMany(targetEntity="Tag", cascade={"persist"}) 
+	*@JoinTable(name= "article_tags")
+	*@JoinColumn(referencedColumnName="id", nullable = false)
 	*/
-	private $tag;
+	private $tags;
 
+	public function __construct(){
+		$this->tags = new ArrayCollection;
+	}
 
 	public function getId(){
 		return $this ->id;
@@ -98,12 +106,8 @@ class Article {
 	public function setAuthor($value){
 		$this ->author = $value;
 	}
-
-	public function getTag(){
-		return $this ->tag;
-	}
-
-	public function setTag($value){
-		$this ->tag = $value;
+	
+	public function getTags(){
+		return $this ->tags;
 	}
 }
