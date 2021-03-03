@@ -26,24 +26,19 @@ $app = AppFactory::create();
 // define page routes
 $app->get('/article/{slug}', '\App\Controller\ArticleController:view');
 $app->get('/', '\App\Controller\DefaultController:homepage');
-$app->get('/admin', '\App\Controller\AdminController:view');
-$app->any('/admin/create', '\App\Controller\AdminController:create');
-$app->any('/admin/{id}', '\App\Controller\AdminController:edit');
+$app->get('/admin/article', '\App\Controller\ArticleAdminController:view');
+$app->any('/admin/article/create', '\App\Controller\ArticleAdminController:create');
+$app->any('/admin/article/{id}', '\App\Controller\ArticleAdminController:edit');
 $app->get('/author/{id}', '\App\Controller\AuthorController:author');
-$app->get('/tag', '\App\Controller\TagController:view');
+$app->get('/tags', '\App\Controller\TagController:view');
+$app->get('/tag/{id}', '\App\Controller\TagAdminController:edit');
+
+
+$app->get('/admin/tag', '\App\Controller\TagAdminController:view');
+$app->any('/admin/tag/create', '\App\Controller\TagAdminController:create');
+$app->any('/admin/tag/{id}', '\App\Controller\TagAdminController:edit');
+
 
 // finish
 $app->run();
 /*
-INSERT INTO `Tags` (`id`, `name`) VALUES
-(1, 'Ashley Galvin'),
-(2, 'Patrick Beach'),
-(3, 'Patrick Beach'),
-(4, 'Patrick Beach'),
-(5, 'Patrick Beach'),
-(6, 'Patrick Beach'),
-(7, 'Patrick Beach'),
-(8, 'Patrick Beach'),
-(9, 'MacKenzie Miller')
-
-*/
